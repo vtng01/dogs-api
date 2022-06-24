@@ -6,15 +6,18 @@
   "scripts": {
     "seed": "node db/seed.js",
     "start": "node index.js",
-    "start-dev": "nodemon index.js"
+    "start-dev": "nodemon index.js",
+    "test": "jest --watch-all"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "4.18.1",
+    "jest": "28.1.1",
     "sequelize": "6.20.1",
-    "sqlite3": "5.0.8"
+    "sqlite3": "5.0.8",
+    "supertest": "6.2.3"
   },
   "devDependencies": {
     "nodemon": "2.0.16"
