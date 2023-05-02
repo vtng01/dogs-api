@@ -37,29 +37,23 @@ describe("Endpoints", () => {
 
   describe("POST /dogs", () => {
     it("should create a new dog entry with data sent", async () => {
-      const testDogData = {
-        name: "dogName",
-        breed: "testBreed",
-        color: "testColor",
-        description: "testDescription",
-      };
-      const response = await request(app).post("/dogs").send(testDogData);
-      const { name, breed, color, description } = response.body;
-      expect(response.status).toBe(200);
-      expect({ name, breed, color, description }).toEqual(testDogData);
+      const response = await request(app)
+        .post("/dogs")
+        .send(testDogData)
+        .expect(200);
+      // partial object checkign using expect.objectContaining
+      expect(response.body).toEqual(expect.objectContaining(testDogData));
     });
   });
 
   describe("DELETE /dogs/:id", () => {
     it("should return with not found message when id is not found", async () => {
-      const response = await request(app).delete("/dogs/-1");
-      expect(response.status).toBe(404);
+      const response = await request(app).delete("/dogs/-1").expect(404);
       expect(response.text).toBe("Dog with id -1 not found");
     });
 
     it("should return with success message when deletion is successful", async () => {
-      const response = await request(app).delete("/dogs/1");
-      expect(response.status).toBe(200);
+      const response = await request(app).delete("/dogs/1").expect(200);
       expect(response.text).toBe("deleted dog with id 1");
     });
   });
